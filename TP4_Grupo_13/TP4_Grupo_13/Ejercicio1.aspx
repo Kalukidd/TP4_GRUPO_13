@@ -47,14 +47,20 @@
                     <td>&nbsp;</td>
                     <td class="auto-style2">PROVINCIA:</td>
                     <td class="auto-style3">&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td>
+                        <asp:DropDownList ID="ddlProvinciaInicio" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlProvinciaInicio_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
                     <td class="auto-style2">LOCALIDAD:</td>
                     <td class="auto-style3">&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td>
+                        <asp:DropDownList ID="ddlLocalidadInicio" runat="server">
+                        </asp:DropDownList>
+                    </td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>

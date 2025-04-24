@@ -24,6 +24,24 @@ namespace TP4_Grupo_13
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Control ddlProvinciaInicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProvinciaInicio;
+
+        /// <summary>
+        /// Control ddlLocalidadInicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLocalidadInicio;
+
+        /// <summary>
         /// Control ddlProvinciaFinal.
         /// </summary>
         /// <remarks>
