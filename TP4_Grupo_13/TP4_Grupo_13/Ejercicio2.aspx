@@ -57,6 +57,9 @@
                     <td class="auto-style5">&nbsp;</td>
                     <td class="auto-style16">
                         <asp:DropDownList ID="ddlIdProducto" runat="server">
+                            <asp:ListItem Value="0">Igual a:</asp:ListItem>
+                            <asp:ListItem Value="1">Mayor a:</asp:ListItem>
+                            <asp:ListItem Value="2">Menor a:</asp:ListItem>
                         </asp:DropDownList>
                     </td>
                     <td class="auto-style3">
@@ -70,6 +73,9 @@
                     <td class="auto-style5">&nbsp;</td>
                     <td class="auto-style16">
                         <asp:DropDownList ID="ddlIdCategoria" runat="server">
+                            <asp:ListItem Value="0">Igual a:</asp:ListItem>
+                            <asp:ListItem Value="1">Mayor a:</asp:ListItem>
+                            <asp:ListItem Value="2">Menor a:</asp:ListItem>
                         </asp:DropDownList>
                     </td>
                     <td class="auto-style3">
