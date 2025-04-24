@@ -12,7 +12,8 @@ namespace TP4_Grupo_13
     public partial class Ejercicio1 : System.Web.UI.Page
     {
         //private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;TrustServerCertificate=True";
-        private const string cadenaConexion = "Data Source=kalu\\sqlexpress;Initial Catalog=Viajes;Integrated Security = True";
+        //private const string cadenaConexion = "Data Source=kalu\\sqlexpress;Initial Catalog=Viajes;Integrated Security = True";
+        private const string cadenaConexion = "Data Source=DESKTOP-MMELJR5\\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;TrustServerCertificate=True";
         private string consultaSQLProvincias = "SELECT IdProvincia, NombreProvincia FROM Provincias";
         private string consultasSQLLocalidades = "SELECT IdLocalidad, NombreLocalidad FROM Localidades WHERE IdProvincia = @idProvincia";
         protected void Page_Load(object sender, EventArgs e)
@@ -118,11 +119,19 @@ namespace TP4_Grupo_13
         protected void ddlProvinciaInicio_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idProvincia = int.Parse(ddlProvinciaInicio.SelectedValue);
-
             if (idProvincia > 0)
             {
                 CargarLocalidadesInicio(idProvincia);
                 ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
+                
+                foreach (ListItem item in ddlProvinciaFinal.Items)
+                {
+                    if (item.Value == idProvincia.ToString())
+                    {
+                        ddlProvinciaFinal.Items.Remove(item);
+                        break;
+                    }
+                }
             }
             else
             {
