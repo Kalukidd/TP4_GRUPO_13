@@ -14,6 +14,10 @@ namespace TP4_Grupo_13
         private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;TrustServerCertificate=True";
         //private const string cadenaConexion = "Data Source=kalu\\sqlexpress;Initial Catalog=Viajes;Integrated Security = True";
         //private const string cadenaConexion = "Data Source=DESKTOP-MMELJR5\\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;TrustServerCertificate=True";
+<<<<<<< Updated upstream
+=======
+        private const string cadenaConexion = @"Data Source = LENOVO\SQLEXPRESS;Initial Catalog = Viajes; Integrated Security = True; Encrypt=False";
+>>>>>>> Stashed changes
         private string consultaSQLProvincias = "SELECT IdProvincia, NombreProvincia FROM Provincias";
         private string consultasSQLLocalidades = "SELECT IdLocalidad, NombreLocalidad FROM Localidades WHERE IdProvincia = @idProvincia";
         protected void Page_Load(object sender, EventArgs e)
@@ -65,6 +69,8 @@ namespace TP4_Grupo_13
 
         protected void ddlProvinciaFinal_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+
             int idProvincia = int.Parse(ddlProvinciaFinal.SelectedValue);
 
             if (idProvincia > 0)
@@ -75,6 +81,13 @@ namespace TP4_Grupo_13
             {
                 ddlLocalidadFinal.Items.Clear();
                 ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
+                
+
+                if (ddlLocalidadFinal.Items.Count != 1 || ddlLocalidadFinal.Items.Count == 1) {
+                    ddlLocalidadFinal.Items.Clear();
+                    ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
+
+                }
             }
         }
 
@@ -124,6 +137,11 @@ namespace TP4_Grupo_13
                 CargarLocalidadesInicio(idProvincia);
                 ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
                 
+
+                CargarProvinciasFinal();
+                ddlLocalidadFinal.Items.Clear();
+                ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
+
                 foreach (ListItem item in ddlProvinciaFinal.Items)
                 {
                     if (item.Value == idProvincia.ToString())
@@ -131,12 +149,20 @@ namespace TP4_Grupo_13
                         ddlProvinciaFinal.Items.Remove(item);
                         break;
                     }
+                   
                 }
             }
             else
             {
                 ddlLocalidadInicio.Items.Clear();
                 ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
+                if (ddlLocalidadInicio.Items.Count != 1 || ddlLocalidadInicio.Items.Count == 1) {
+                    ddlLocalidadInicio.Items.Clear();
+                    ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
+                }
+                
+            
+
             }
         }
     }
