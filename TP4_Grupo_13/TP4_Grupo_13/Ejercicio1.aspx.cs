@@ -9,160 +9,96 @@ using System.Data;
 
 namespace TP4_Grupo_13
 {
+
     public partial class Ejercicio1 : System.Web.UI.Page
     {
-       // private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;TrustServerCertificate=True";
-        //private const string cadenaConexion = "Data Source=kalu\\sqlexpress;Initial Catalog=Viajes;Integrated Security = True";
-        //private const string cadenaConexion = "Data Source=DESKTOP-MMELJR5\\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;TrustServerCertificate=True";
+        private const string cadenaConexion = @"Data Source=GERSONGUTIERREZ\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;Encrypt=False";
+        private const string consultaSQLProvincias = "SELECT IdProvincia, NombreProvincia FROM Provincias";
+        private const string consultaSQLLocalidades = "SELECT IdLocalidad, NombreLocalidad FROM Localidades WHERE IdProvincia = @idProvincia";
 
-        private const string cadenaConexion = @"Data Source = LENOVO\SQLEXPRESS;Initial Catalog = Viajes; Integrated Security = True; Encrypt=False";
-
-        private string consultaSQLProvincias = "SELECT IdProvincia, NombreProvincia FROM Provincias";
-        private string consultasSQLLocalidades = "SELECT IdLocalidad, NombreLocalidad FROM Localidades WHERE IdProvincia = @idProvincia";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CargarProvinciasFinal();
-                CargarProvinciasInicio();
+                CargarProvincias(ddlProvinciaInicio);
+                CargarProvincias(ddlProvinciaFinal);
 
-                ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
                 ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-            }
-        }
-
-        private void CargarProvinciasFinal()
-        {
-            SqlConnection connection = new SqlConnection(cadenaConexion);
-            connection.Open();
-
-            SqlCommand sqlCommand = new SqlCommand(consultaSQLProvincias, connection);
-            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-            ddlProvinciaFinal.DataSource = sqlDataReader;
-            ddlProvinciaFinal.DataTextField = "NombreProvincia";
-            ddlProvinciaFinal.DataValueField = "IdProvincia";
-            ddlProvinciaFinal.DataBind();
-
-            ddlProvinciaFinal.Items.Insert(0, new ListItem("-- Seleccione una provincia --", "0"));
-            connection.Close();
-        }
-
-        private void CargarProvinciasInicio()
-        {
-            SqlConnection connection = new SqlConnection(cadenaConexion);
-            connection.Open();
-
-            SqlCommand sqlCommand = new SqlCommand(consultaSQLProvincias, connection);
-            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-
-            ddlProvinciaInicio.DataSource = sqlDataReader;
-            ddlProvinciaInicio.DataTextField = "NombreProvincia";
-            ddlProvinciaInicio.DataValueField = "IdProvincia";
-            ddlProvinciaInicio.DataBind();
-
-            ddlProvinciaInicio.Items.Insert(0, new ListItem("-- Seleccione una provincia --", "0"));
-            connection.Close();
-        }
-
-        protected void ddlProvinciaFinal_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-
-            int idProvincia = int.Parse(ddlProvinciaFinal.SelectedValue);
-
-            if (idProvincia > 0)
-            {
-                CargarLocalidadesFinal(idProvincia);
-            }
-            else
-            {
-                ddlLocalidadFinal.Items.Clear();
                 ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-                
+            }
+        }
 
-                if (ddlLocalidadFinal.Items.Count != 1 || ddlLocalidadFinal.Items.Count == 1) {
-                    ddlLocalidadFinal.Items.Clear();
-                    ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-
+        private void CargarProvincias(DropDownList ddlProvincia)
+        {
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(consultaSQLProvincias, connection);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    ddlProvincia.DataSource = reader;
+                    ddlProvincia.DataTextField = "NombreProvincia";
+                    ddlProvincia.DataValueField = "IdProvincia";
+                    ddlProvincia.DataBind();
                 }
             }
+            ddlProvincia.Items.Insert(0, new ListItem("-- Seleccione una provincia --", "0"));
         }
 
-        private void CargarLocalidadesFinal(int idProvincia)
+        private void CargarLocalidades(DropDownList ddlLocalidad, int idProvincia)
         {
-            SqlConnection connection = new SqlConnection(cadenaConexion);
-            connection.Open();
-
-            SqlCommand sqlCommand = new SqlCommand(consultasSQLLocalidades, connection);
-            sqlCommand.Parameters.AddWithValue("@idProvincia", idProvincia);
-            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-            ddlLocalidadFinal.DataSource = sqlDataReader;
-            ddlLocalidadFinal.DataTextField = "NombreLocalidad";
-            ddlLocalidadFinal.DataValueField = "IdLocalidad";
-            ddlLocalidadFinal.DataBind();
-
-            ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-            connection.Close();
-
-        }
-
-        private void CargarLocalidadesInicio(int idProvincia)
-        {
-            SqlConnection connection = new SqlConnection(cadenaConexion);
-            connection.Open();
-
-            SqlCommand sqlCommand = new SqlCommand(consultasSQLLocalidades, connection);
-            sqlCommand.Parameters.AddWithValue("@idProvincia", idProvincia);
-            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-            ddlLocalidadInicio.DataSource = sqlDataReader;
-            ddlLocalidadInicio.DataTextField = "NombreLocalidad";
-            ddlLocalidadInicio.DataValueField = "IdLocalidad";
-            ddlLocalidadInicio.DataBind();
-
-            ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-            connection.Close();
-
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(consultaSQLLocalidades, connection);
+                cmd.Parameters.AddWithValue("@idProvincia", idProvincia);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    ddlLocalidad.DataSource = reader;
+                    ddlLocalidad.DataTextField = "NombreLocalidad";
+                    ddlLocalidad.DataValueField = "IdLocalidad";
+                    ddlLocalidad.DataBind();
+                }
+            }
+            ddlLocalidad.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
         }
 
         protected void ddlProvinciaInicio_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idProvincia = int.Parse(ddlProvinciaInicio.SelectedValue);
+
+            ddlLocalidadInicio.Items.Clear();
             if (idProvincia > 0)
             {
-                CargarLocalidadesInicio(idProvincia);
-                ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-                
+                CargarLocalidades(ddlLocalidadInicio, idProvincia);
 
-                CargarProvinciasFinal();
+                CargarProvincias(ddlProvinciaFinal);
+                ddlProvinciaFinal.Items.Remove(ddlProvinciaFinal.Items.FindByValue(idProvincia.ToString()));
+
                 ddlLocalidadFinal.Items.Clear();
                 ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-
-                foreach (ListItem item in ddlProvinciaFinal.Items)
-                {
-                    if (item.Value == idProvincia.ToString())
-                    {
-                        ddlProvinciaFinal.Items.Remove(item);
-                        break;
-                    }
-                   
-                }
             }
             else
             {
-                ddlLocalidadInicio.Items.Clear();
                 ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-                if (ddlLocalidadInicio.Items.Count != 1 || ddlLocalidadInicio.Items.Count == 1) {
-                    ddlLocalidadInicio.Items.Clear();
-                    ddlLocalidadInicio.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
-                }
-                
-            
+            }
+        }
 
+        protected void ddlProvinciaFinal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idProvincia = int.Parse(ddlProvinciaFinal.SelectedValue);
+
+            ddlLocalidadFinal.Items.Clear();
+            if (idProvincia > 0)
+            {
+                CargarLocalidades(ddlLocalidadFinal, idProvincia);
+            }
+            else
+            {
+                ddlLocalidadFinal.Items.Insert(0, new ListItem("-- Seleccione una localidad --", "0"));
             }
         }
     }
+
+
 }
