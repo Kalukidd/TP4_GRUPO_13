@@ -37,6 +37,29 @@
         .auto-style16 {
             width: 127px;
         }
+        .auto-style17 {
+            width: 35px;
+            height: 26px;
+        }
+        .auto-style18 {
+            width: 125px;
+            height: 26px;
+        }
+        .auto-style19 {
+            width: 30px;
+            height: 26px;
+        }
+        .auto-style20 {
+            width: 127px;
+            height: 26px;
+        }
+        .auto-style21 {
+            width: 268px;
+            height: 26px;
+        }
+        .auto-style22 {
+            height: 26px;
+        }
     </style>
 </head>
 <body>
@@ -68,20 +91,20 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style10">Id Categoria:</td>
-                    <td class="auto-style5">&nbsp;</td>
-                    <td class="auto-style16">
+                    <td class="auto-style17"></td>
+                    <td class="auto-style18">Id Categoria:</td>
+                    <td class="auto-style19"></td>
+                    <td class="auto-style20">
                         <asp:DropDownList ID="ddlIdCategoria" runat="server">
                             <asp:ListItem Value="0">Igual a:</asp:ListItem>
                             <asp:ListItem Value="1">Mayor a:</asp:ListItem>
                             <asp:ListItem Value="2">Menor a:</asp:ListItem>
                         </asp:DropDownList>
                     </td>
-                    <td class="auto-style3">
+                    <td class="auto-style21">
                         <asp:TextBox ID="txtCategoria" runat="server" Width="243px"></asp:TextBox>
                     </td>
-                    <td>&nbsp;</td>
+                    <td class="auto-style22"></td>
                 </tr>
                 <tr>
                     <td class="auto-style6">&nbsp;</td>
@@ -101,7 +124,7 @@
                         <asp:Button ID="btnFiltrar" runat="server" CssClass="auto-style12" Text="Filtrar" Width="112px" OnClick="btnFiltrar_Click" />
                     </td>
                     <td>
-                        <asp:Button ID="btnQuitarFiltro" runat="server" Text="Quitar Filtro" Width="112px" />
+                        <asp:Button ID="btnQuitarFiltro" runat="server" Text="Quitar Filtro" Width="112px" OnClick="btnQuitarFiltro_Click" />
                     </td>
                     <td>&nbsp;</td>
                 </tr>

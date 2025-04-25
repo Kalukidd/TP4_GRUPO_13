@@ -18,7 +18,9 @@ namespace TP4_Grupo_13
     {
         //private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;TrustServerCertificate=True";
         // private const string cadenaConexion = @"Data Source=LENOVO\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
-        private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        //private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = "Data Source=DESKTOP-MMELJR5\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+          
         private string consultaSQL = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos";
 
         protected void Page_Load(object sender, EventArgs e)
@@ -43,32 +45,58 @@ namespace TP4_Grupo_13
             
             if (!string.IsNullOrWhiteSpace(txtProducto.Text) && string.IsNullOrWhiteSpace(txtCategoria.Text))
             {
-                
-                string operador = "="; 
+                string consultaFiltrada  = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM *" ;
+                string operadorProducto = "="; 
+                string operadorCategoria = "=";
                 switch (ddlIdProducto.SelectedValue)
+                    {
+                        case "1":
+                            operadorProducto = ">";
+                            break;
+                        case "2":
+                            operadorProducto = "<";
+                            break;
+                    }
+                    switch (ddlIdCategoria.SelectedValue)
+                    {
+                        case "1":
+                            operadorCategoria = ">";
+                            break;
+                        case "2":
+                            operadorCategoria = "<";
+                            break;
+                    }
+                int caso = 0;
+                if (txtProducto.Text != "") caso += 1;
+                if (txtCategoria.Text != "") caso += 2;
+                switch (caso)
                 {
-                    case "1":
-                        operador = ">";
+                    case 1:
+                        consultaFiltrada = $"SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE IdProducto {operadorProducto} @IdProducto";
                         break;
-                    case "2":
-                        operador = "<";
+                    case 2:
+                        consultaFiltrada = $"SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE IdCategoria {operadorCategoria} @IdCategoria";
+                        break;
+                    case 3:
+                        consultaFiltrada = $"SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE IdProducto {operadorProducto} @IdProducto AND IdCategoria {operadorCategoria} @IdCategoria";
                         break;
                 }
-
-                string consultaFiltrada = $"SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE IdProducto {operador} @IdProducto";
 
                 using (SqlConnection connection = new SqlConnection(cadenaConexion))
-                {
-                    connection.Open();
-
-                    SqlCommand cmd = new SqlCommand(consultaFiltrada, connection);
-                    cmd.Parameters.AddWithValue("@IdProducto", txtProducto.Text);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    gvProductos.DataSource = reader;
-                    gvProductos.DataBind();
-                }
+                    {
+                        connection.Open();
+                        SqlCommand cmd = new SqlCommand(consultaFiltrada, connection);
+                        cmd.Parameters.AddWithValue("@IdProducto", txtProducto.Text);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        gvProductos.DataSource = reader;
+                        gvProductos.DataBind();
+                    }
             }
+        }
+
+        protected void btnQuitarFiltro_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
