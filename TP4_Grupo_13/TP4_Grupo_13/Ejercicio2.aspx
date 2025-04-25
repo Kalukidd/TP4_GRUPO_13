@@ -98,7 +98,7 @@
                 <tr>
                     <td class="auto-style11">&nbsp;</td>
                     <td class="auto-style13">
-                        <asp:Button ID="btnFiltrar" runat="server" CssClass="auto-style12" Text="Filtrar" Width="112px" />
+                        <asp:Button ID="btnFiltrar" runat="server" CssClass="auto-style12" Text="Filtrar" Width="112px" OnClick="btnFiltrar_Click" />
                     </td>
                     <td>
                         <asp:Button ID="btnQuitarFiltro" runat="server" Text="Quitar Filtro" Width="112px" />
