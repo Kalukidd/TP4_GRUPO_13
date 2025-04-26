@@ -19,7 +19,7 @@ namespace TP4_Grupo_13
         //private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;TrustServerCertificate=True";
         // private const string cadenaConexion = @"Data Source=LENOVO\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
         //private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
-        private const string cadenaConexion = "Data Source=DESKTOP-MMELJR5\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
           
         private string consultaSQL = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos";
 
@@ -96,7 +96,20 @@ namespace TP4_Grupo_13
 
         protected void btnQuitarFiltro_Click(object sender, EventArgs e)
         {
+            txtCategoria.Text = "";
+            txtProducto.Text = "";
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                connection.Open();
 
+                SqlCommand cmdProductos = new SqlCommand(consultaSQL, connection);
+                SqlDataReader sqlDataReader = cmdProductos.ExecuteReader();
+
+                gvProductos.DataSource = sqlDataReader;
+                gvProductos.DataBind();
+
+                connection.Close();
+            }
         }
     }
 }
