@@ -1,66 +1,33 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Ejercicio2.aspx.cs" Inherits="TP4_Grupo_13.Ejercicio2" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-    <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-        }
-        .auto-style3 {
-            width: 268px;
-        }
-        .auto-style5 {
-            width: 30px;
-        }
-        .auto-style6 {
-            width: 35px;
-        }
-        .auto-style10 {
-            width: 125px;
-        }
-        .auto-style11 {
-            width: 153px;
-        }
-        .auto-style12 {
-            margin-left: 294px;
-        }
-        .auto-style13 {
-            width: 445px;
-        }
-        .auto-style15 {
-            margin-left: 0px;
-        }
-        .auto-style16 {
-            width: 127px;
-        }
-        .auto-style17 {
-            width: 35px;
-            height: 26px;
-        }
-        .auto-style18 {
-            width: 125px;
-            height: 26px;
-        }
-        .auto-style19 {
-            width: 30px;
-            height: 26px;
-        }
-        .auto-style20 {
-            width: 127px;
-            height: 26px;
-        }
-        .auto-style21 {
-            width: 268px;
-            height: 26px;
-        }
-        .auto-style22 {
-            height: 26px;
-        }
-    </style>
+<title></title>
+<style type="text/css">
+    .auto-style1 { width: 100%; }
+    .auto-style3 { width: 268px; }
+    .auto-style5 { width: 30px; }
+    .auto-style6 { width: 35px; }
+    .auto-style10 { width: 125px; }
+    .auto-style11 { width: 153px; }
+    .auto-style12 { margin-left: 294px; }
+    .auto-style13 { width: 445px; }
+    .auto-style15 { margin-left: 0px; }
+    .auto-style16 { width: 127px; }
+    .auto-style17 { width: 35px; height: 26px; }
+    .auto-style18 { width: 125px; height: 26px; }
+    .auto-style19 { width: 30px; height: 26px; }
+    .auto-style20 { width: 127px; height: 26px; }
+    .auto-style21 { width: 268px; height: 26px; }
+    .auto-style22 { height: 26px; }
+    .validator {
+        color: red;
+        font-size: small;
+        display: block;
+    }
+</style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -87,6 +54,25 @@
                     </td>
                     <td class="auto-style3">
                         <asp:TextBox ID="txtProducto" runat="server" Width="245px"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvProducto" runat="server"
+                            ControlToValidate="txtProducto"
+                            ErrorMessage="* Campo obligatorio"
+                            CssClass="validator"
+                            Display="Dynamic" />
+                        <asp:RegularExpressionValidator ID="revProducto" runat="server"
+                            ControlToValidate="txtProducto"
+                            ValidationExpression="^[1-9]\d*$"
+                            ErrorMessage="* Solo números enteros positivos, sin espacios ni letras"
+                            CssClass="validator"
+                            Display="Dynamic" />
+                        <asp:RangeValidator ID="rvProducto" runat="server"
+                            ControlToValidate="txtProducto"
+                            MinimumValue="1"
+                            MaximumValue="999999"
+                            Type="Integer"
+                            ErrorMessage="* El número debe ser mayor o igual a 1"
+                            CssClass="validator"
+                            Display="Dynamic" />
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -103,6 +89,25 @@
                     </td>
                     <td class="auto-style21">
                         <asp:TextBox ID="txtCategoria" runat="server" Width="243px"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvCategoria" runat="server"
+                            ControlToValidate="txtCategoria"
+                            ErrorMessage="* Campo obligatorio"
+                            CssClass="validator"
+                            Display="Dynamic" />
+                        <asp:RegularExpressionValidator ID="revCategoria" runat="server"
+                            ControlToValidate="txtCategoria"
+                            ValidationExpression="^[1-9]\d*$"
+                            ErrorMessage="* Solo números enteros positivos, sin espacios ni letras"
+                            CssClass="validator"
+                            Display="Dynamic" />
+                        <asp:RangeValidator ID="rvCategoria" runat="server"
+                            ControlToValidate="txtCategoria"
+                            MinimumValue="1"
+                            MaximumValue="999999"
+                            Type="Integer"
+                            ErrorMessage="* El número debe ser mayor o igual a 1"
+                            CssClass="validator"
+                            Display="Dynamic" />
                     </td>
                     <td class="auto-style22"></td>
                 </tr>
@@ -115,24 +120,33 @@
                     <td>&nbsp;</td>
                 </tr>
             </table>
+
             <br />
-           
+
             <table class="auto-style1">
                 <tr>
                     <td class="auto-style11">&nbsp;</td>
                     <td class="auto-style13">
-                        <asp:Button ID="btnFiltrar" runat="server" CssClass="auto-style12" Text="Filtrar" Width="112px" OnClick="btnFiltrar_Click" />
+                        <asp:Button ID="btnFiltrar" runat="server"
+                            CssClass="auto-style12"
+                            Text="Filtrar"
+                            Width="112px"
+                            OnClick="btnFiltrar_Click"
+                            CausesValidation="true" />
                     </td>
                     <td>
-                        <asp:Button ID="btnQuitarFiltro" runat="server" Text="Quitar Filtro" Width="112px" OnClick="btnQuitarFiltro_Click" />
+                        <asp:Button ID="btnQuitarFiltro" runat="server"
+                            Text="Quitar Filtro"
+                            Width="112px"
+                            OnClick="btnQuitarFiltro_Click"
+                            CausesValidation="false" />
                     </td>
                     <td>&nbsp;</td>
                 </tr>
             </table>
-           
-            <br />
-            <br />
-            <br />
+
+            <br /><br /><br />
+
             <table class="auto-style1">
                 <tr>
                     <td class="auto-style6">&nbsp;</td>

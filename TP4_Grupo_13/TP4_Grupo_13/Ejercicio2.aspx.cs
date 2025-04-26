@@ -18,13 +18,24 @@ namespace TP4_Grupo_13
     {
         //private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;TrustServerCertificate=True";
         // private const string cadenaConexion = @"Data Source=LENOVO\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
-        //private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
-        private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+       // private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
           
         private string consultaSQL = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos";
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            ScriptResourceDefinition jQueryDef = new ScriptResourceDefinition
+            {
+                Path = "~/Scripts/jquery-3.7.1.min.js",
+                DebugPath = "~/Scripts/jquery-3.7.1.js",
+                LoadSuccessExpression = "window.jQuery"
+            };
+
+            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", jQueryDef);
+
+
             if (!IsPostBack)
             {
                 using (SqlConnection connection = new SqlConnection(cadenaConexion))
