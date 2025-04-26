@@ -54,11 +54,6 @@
                     </td>
                     <td class="auto-style3">
                         <asp:TextBox ID="txtProducto" runat="server" Width="245px"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvProducto" runat="server"
-                            ControlToValidate="txtProducto"
-                            ErrorMessage="* Campo obligatorio"
-                            CssClass="validator"
-                            Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revProducto" runat="server"
                             ControlToValidate="txtProducto"
                             ValidationExpression="^[1-9]\d*$"
@@ -89,11 +84,6 @@
                     </td>
                     <td class="auto-style21">
                         <asp:TextBox ID="txtCategoria" runat="server" Width="243px"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvCategoria" runat="server"
-                            ControlToValidate="txtCategoria"
-                            ErrorMessage="* Campo obligatorio"
-                            CssClass="validator"
-                            Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revCategoria" runat="server"
                             ControlToValidate="txtCategoria"
                             ValidationExpression="^[1-9]\d*$"

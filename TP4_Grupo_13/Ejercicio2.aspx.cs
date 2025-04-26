@@ -20,7 +20,9 @@ namespace TP4_Grupo_13
         // private const string cadenaConexion = @"Data Source=LENOVO\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
         // private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
         // private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
-        private const string cadenaConexion = "Data Source=KALU\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        //private const string cadenaConexion = "Data Source=KALU\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = "Data Source=DESKTOP-MMELJR5\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        
 
         private string consultaSQL = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos";
 
@@ -169,15 +171,10 @@ namespace TP4_Grupo_13
                     gvProductos.DataBind();
                 }
             }
-
             // Limpia los TextBox después de filtrar
             txtProducto.Text = "";
             txtCategoria.Text = "";
-
-
         }
-    
-
 
         protected void btnQuitarFiltro_Click(object sender, EventArgs e)
         {
