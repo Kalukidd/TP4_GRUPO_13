@@ -59,7 +59,7 @@
                 <tr>
                     <td class="auto-style4"></td>
                     <td class="auto-style5">
-                        <asp:LinkButton ID="lbLibros" runat="server">Ver libros</asp:LinkButton>
+                        <asp:LinkButton ID="lbLibros" runat="server" OnClick="lbLibros_Click">Ver libros</asp:LinkButton>
                     </td>
                     <td class="auto-style6"></td>
                 </tr>

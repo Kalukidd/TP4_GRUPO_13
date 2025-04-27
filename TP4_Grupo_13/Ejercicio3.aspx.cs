@@ -32,6 +32,11 @@ namespace TP4_Grupo_13
                 }
             }
         }
+
+        protected void lbLibros_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("Ejercicio3B.aspx");
+        }
     }
 
 
