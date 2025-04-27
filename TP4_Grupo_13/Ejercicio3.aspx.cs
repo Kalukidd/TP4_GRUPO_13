@@ -11,41 +11,27 @@ namespace TP4_Grupo_13
 
     public partial class Ejercicio3 : System.Web.UI.Page
     {
-   
+        //private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False"
+        private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
+        string consultaSQL = "SELECT * FROM Temas";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-               
-                SqlConnection cn = new SqlConnection("Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False");
-                cn .Open();
+                using (SqlConnection connection = new SqlConnection(cadenaConexion))
+                {
+                    connection.Open();
 
-                SqlCommand cmd = new SqlCommand("Select * from Temas",cn);
-                SqlDataReader dr = cmd.ExecuteReader();
-                ddlTemas.DataSource = dr;
-                ddlTemas.DataTextField = "Tema";
-                ddlTemas.DataValueField = "IdTema";
-                ddlTemas.DataBind();
-                cn.Close();
-
+                    SqlCommand cmd = new SqlCommand(consultaSQL, connection);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    ddlTemas.DataSource = dr;
+                    ddlTemas.DataTextField = "Tema";
+                    ddlTemas.DataValueField = "IdTema";
+                    ddlTemas.DataBind();
+                    connection.Close();
+                }
             }
         }
-
-
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
     }
 
 
