@@ -39,7 +39,7 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <asp:LinkButton ID="lbOtroTema" runat="server">Consultar otro tema</asp:LinkButton>
+                        <asp:LinkButton ID="lbOtroTema" runat="server" OnClick="lbOtroTema_Click">Consultar otro tema</asp:LinkButton>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
