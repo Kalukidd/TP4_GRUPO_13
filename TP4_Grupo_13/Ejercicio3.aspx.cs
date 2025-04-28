@@ -14,7 +14,8 @@ namespace TP4_Grupo_13
         //private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
         // private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
         //private const string cadenaConexion = "Data Source=KALU\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
-        private const string cadenaConexion = "Data Source=LENOVO\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
+        //private const string cadenaConexion = "Data Source=LENOVO\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;TrustServerCertificate=True";
 
         string consultaSQL = "SELECT * FROM Temas";
         protected void Page_Load(object sender, EventArgs e)

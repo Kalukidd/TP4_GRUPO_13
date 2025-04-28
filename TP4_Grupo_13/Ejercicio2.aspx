@@ -79,7 +79,8 @@
                         <asp:TextBox ID="txtProducto" runat="server" Width="245px"></asp:TextBox>
                     </td>
                     <td class="auto-style28">
-                        <asp:Label ID="lblProdER" runat="server" ForeColor="Red"></asp:Label>
+                        <asp:RegularExpressionValidator ID="revProducto" runat="server" ControlToValidate="txtProducto" CssClass="validator" Display="Dynamic" ErrorMessage="* Solo números enteros positivos, sin espacios ni letras" ValidationExpression="^[1-9]\d*$"></asp:RegularExpressionValidator>
+                        <asp:RequiredFieldValidator ID="rfvProducto" runat="server" ControlToValidate="txtProducto" Display="Dynamic" ErrorMessage="RequiredFieldValidator" ForeColor="Red">Debe ingresar al menos un número</asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -97,7 +98,8 @@
                         <asp:TextBox ID="txtCategoria" runat="server" Width="243px"></asp:TextBox>
                     </td>
                     <td class="auto-style22">
-                        <asp:Label ID="lblCatER" runat="server" ForeColor="Red"></asp:Label>
+                        <asp:RegularExpressionValidator ID="revCategoria" runat="server" ControlToValidate="txtCategoria" CssClass="validator" Display="Dynamic" ErrorMessage="* Solo números enteros positivos, sin espacios ni letras" ValidationExpression="^[1-9]\d*$"></asp:RegularExpressionValidator>
+                        <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="txtCategoria" Display="Dynamic" ErrorMessage="RequiredFieldValidator" ForeColor="Red">Debe ingresar al menos un número</asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -142,6 +144,7 @@
                     <td>
                         <asp:GridView ID="gvProductos" runat="server" CssClass="auto-style15">
                         </asp:GridView>
+                        <asp:Label ID="lblMensaje" runat="server" ForeColor="Red"></asp:Label>
                     </td>
                 </tr>
             </table>

@@ -17,13 +17,13 @@ namespace TP4_Grupo_13
     public partial class Ejercicio2 : System.Web.UI.Page
 
     {
-        //private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;TrustServerCertificate=True";
-        private const string cadenaConexion = @"Data Source=LENOVO\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;TrustServerCertificate=True";
+        //private const string cadenaConexion = @"Data Source=LENOVO\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
         // private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
         // private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
         //private const string cadenaConexion = "Data Source=KALU\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
         //private const string cadenaConexion = "Data Source=DESKTOP-MMELJR5\\SQLEXPRESS;Initial Catalog=Neptuno;Integrated Security=True;Encrypt=False";
-        
+
 
         private string consultaSQL = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos";
 
@@ -56,6 +56,112 @@ namespace TP4_Grupo_13
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+
+            lblMensaje.Text = "";
+
+            if (Page.IsValid)
+            {
+                string idProducto = txtProducto.Text;
+                string filtrodeProducto = ddlIdProducto.SelectedValue;
+                string idCategoria = txtCategoria.Text;
+                string filtrodeCategoria = ddlIdCategoria.SelectedValue;
+
+
+                string consulta = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE 1=1";
+
+
+                if (!string.IsNullOrEmpty(idProducto))
+                {
+                    if (int.TryParse(idProducto, out int idProd))
+                    {
+                        switch (filtrodeProducto)
+                        {
+                            case "1":  // Igual a
+                                consulta += " AND IdProducto = @IdProducto";
+                                break;
+                            case "2":  // Mayor a
+                                consulta += " AND IdProducto > @IdProducto";
+                                break;
+                            case "3":  // Menor a
+                                consulta += " AND IdProducto < @IdProducto";
+                                break;
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(idCategoria))
+                {
+
+                    if (!consulta.Contains("WHERE"))
+                    {
+                        consulta += " WHERE 1=1";
+                    }
+
+                    if (int.TryParse(idCategoria, out int idCat))
+                    {
+                        switch (filtrodeCategoria)
+                        {
+                            case "1":  // Igual a
+                                consulta += " AND IdCategoría = @IdCategoría";
+                                break;
+                            case "2":  // Mayor a
+                                consulta += " AND IdCategoría > @IdCategoría";
+                                break;
+                            case "3":  // Menor a
+                                consulta += " AND IdCategoría < @IdCategoría";
+                                break;
+                        }
+                    }
+                }
+
+                using (SqlConnection cn = new SqlConnection(cadenaConexion))
+                {
+                    using (SqlDataAdapter cmd = new SqlDataAdapter(consulta, cn))
+                    {
+                        if (!string.IsNullOrEmpty(idProducto) && int.TryParse(idProducto, out int idProd))
+                        {
+                            cmd.SelectCommand.Parameters.AddWithValue("@IdProducto", idProd);
+                        }
+
+                        if (!string.IsNullOrEmpty(idCategoria) && int.TryParse(idCategoria, out int idCat))
+                        {
+                            cmd.SelectCommand.Parameters.AddWithValue("@IdCategoría", idCat);
+                        }
+
+                        DataSet ds = new DataSet();
+                        cmd.Fill(ds, "Productos");
+
+                        if (ds.Tables["Productos"].Rows.Count == 0)
+                        {
+                            gvProductos.DataSource = null;
+                            gvProductos.DataBind();
+                            lblMensaje.Text = "No se encontraron productos";
+                        }
+                        else
+                        {
+                            gvProductos.DataSource = ds;
+                            gvProductos.DataBind();
+                            lblMensaje.Text = "";
+                        }
+
+                    }
+                }
+
+                // Limpia los TextBox después de filtrar
+                txtProducto.Text = "";
+                txtCategoria.Text = "";
+
+            }
+            else
+            {
+                gvProductos.DataSource = null;
+                gvProductos.DataBind();
+                lblMensaje.Text = "";
+            }
+
+        }
+        /*protected void btnFiltrar_Click(object sender, EventArgs e)
         {
             string idProducto = txtProducto.Text;
             string filtrodeProducto = ddlIdProducto.SelectedValue;
@@ -124,54 +230,6 @@ namespace TP4_Grupo_13
                 }
             }
 
-            /* if (!string.IsNullOrWhiteSpace(txtProducto.Text) && string.IsNullOrWhiteSpace(txtCategoria.Text))
-             {
-                 string consultaFiltrada  = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM *" ;
-                 string operadorProducto = "="; 
-                 string operadorCategoria = "=";
-                 switch (ddlIdProducto.SelectedValue)
-                     {
-                         case "1":
-                             operadorProducto = ">";
-                             break;
-                         case "2":
-                             operadorProducto = "<";
-                             break;
-                     }
-                     switch (ddlIdCategoria.SelectedValue)
-                     {
-                         case "1":
-                             operadorCategoria = ">";
-                             break;
-                         case "2":
-                             operadorCategoria = "<";
-                             break;
-                     }
-                 int caso = 0;
-                 if (txtProducto.Text != "") caso += 1;
-                 if (txtCategoria.Text != "") caso += 2;
-                 switch (caso)
-                 {
-                     case 1:
-                         consultaFiltrada = $"SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE IdProducto {operadorProducto} @IdProducto";
-                         break;
-                     case 2:
-                         consultaFiltrada = $"SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE IdCategoria {operadorCategoria} @IdCategoria";
-                         break;
-                     case 3:
-                         consultaFiltrada = $"SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE IdProducto {operadorProducto} @IdProducto AND IdCategoria {operadorCategoria} @IdCategoria";
-                         break;
-                 }*/
-
-            /* using (SqlConnection connection = new SqlConnection(cadenaConexion))
-             {
-                 connection.Open();
-                 SqlCommand cmd = new SqlCommand(consulta, connection);
-                 cmd.Parameters.AddWithValue("@IdProducto", txtProducto.Text);
-                 SqlDataReader reader = cmd.ExecuteReader();
-                 gvProductos.DataSource = reader;
-                 gvProductos.DataBind();
-             }*/
             if (esValidoCAT || esValidoPROD) {
                 using (SqlConnection cn = new SqlConnection(cadenaConexion))
                 {
@@ -198,15 +256,15 @@ namespace TP4_Grupo_13
             }
             
             
-        }
+        }*/
 
         protected void btnQuitarFiltro_Click(object sender, EventArgs e)
         {
             txtCategoria.Text = "";
             txtProducto.Text = "";
 
-            lblProdER.Text = "";
-            lblCatER.Text = "";
+            /*lblProdER.Text = "";
+            lblCatER.Text = "";*/
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {

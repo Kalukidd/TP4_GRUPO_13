@@ -12,7 +12,8 @@ namespace TP4_Grupo_13
 
     public partial class Ejercicio3B : System.Web.UI.Page
     {
-        private const string cadenaConexion = "Data Source=LENOVO\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;TrustServerCertificate=True";
+        //private const string cadenaConexion = "Data Source=LENOVO\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
         protected void Page_Load(object sender, EventArgs e)
 
         {

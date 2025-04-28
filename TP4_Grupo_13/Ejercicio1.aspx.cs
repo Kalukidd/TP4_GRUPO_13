@@ -12,7 +12,8 @@ namespace TP4_Grupo_13
 
     public partial class Ejercicio1 : System.Web.UI.Page
     {
-        private const string cadenaConexion = @"Data Source=GERSONGUTIERREZ\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;Encrypt=False";
+        //private const string cadenaConexion = @"Data Source=GERSONGUTIERREZ\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Viajes;Integrated Security=True;TrustServerCertificate=True";
         private const string consultaSQLProvincias = "SELECT IdProvincia, NombreProvincia FROM Provincias";
         private const string consultaSQLLocalidades = "SELECT IdLocalidad, NombreLocalidad FROM Localidades WHERE IdProvincia = @idProvincia";
 
