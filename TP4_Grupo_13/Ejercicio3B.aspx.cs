@@ -14,15 +14,12 @@ namespace TP4_Grupo_13
     {
         private const string cadenaConexion = @"Data Source=DESKTOP-IN37CD7\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;TrustServerCertificate=True";
         //private const string cadenaConexion = "Data Source=LENOVO\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
+
         protected void Page_Load(object sender, EventArgs e)
-
         {
-
-
             string id;
             id = Request.QueryString["IdTema"];
-        string consulta = "SELECT * FROM Libros WHERE IdTema =";
-
+            string consulta = "SELECT * FROM Libros WHERE IdTema =";
 
             if (!string.IsNullOrEmpty(id))
             {
@@ -37,14 +34,9 @@ namespace TP4_Grupo_13
 
                     gvLibros.DataSource = ds.Tables["Libros"];
                     gvLibros.DataBind();
-
-
-                    connection.Close();
                 }
             }
-}
-
-        
+        }
 
         protected void lbOtroTema_Click(object sender, EventArgs e)
         {

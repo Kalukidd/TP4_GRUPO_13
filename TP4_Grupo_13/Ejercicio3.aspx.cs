@@ -36,29 +36,13 @@ namespace TP4_Grupo_13
                     ddlTemas.DataTextField = "Tema";
                     ddlTemas.DataValueField = "IdTema";
                     ddlTemas.DataBind();
-
-                    connection.Close();
                 }
             }
         }
 
-
-
-
-       
-
         protected void lbLibros_Click(object sender, EventArgs e)
         {
-            
             Response.Redirect("Ejercicio3B.aspx?IdTema=" + ddlTemas.SelectedValue);
         }
     }
-
-
-
-
-
-
-
-
 }

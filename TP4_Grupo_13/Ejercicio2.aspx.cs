@@ -148,7 +148,6 @@ namespace TP4_Grupo_13
                     }
                 }
 
-                // Limpia los TextBox después de filtrar
                 txtProducto.Text = "";
                 txtCategoria.Text = "";
 
@@ -161,103 +160,7 @@ namespace TP4_Grupo_13
             }
 
         }
-        /*protected void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            string idProducto = txtProducto.Text;
-            string filtrodeProducto = ddlIdProducto.SelectedValue;
-            string idCategoria = txtCategoria.Text;
-            string filtrodeCategoria = ddlIdCategoria.SelectedValue;
-
-            string regex = @"^[0-9,$]*$";
-            bool esValidoPROD = Regex.IsMatch(idProducto, regex);
-            bool esValidoCAT = Regex.IsMatch(idCategoria, regex);
-
-            if (string.IsNullOrEmpty(idProducto) && string.IsNullOrEmpty(idCategoria)) {
-                lblProdER.Text = "Debe ingresar al menos un número";
-                lblCatER.Text = "Debe ingresar al menos un número";
-            }
-
-            if (!string.IsNullOrEmpty(idProducto) && !esValidoPROD) {
-                lblProdER.Text = "* El número debe ser mayor o igual a 1";
-            }
-
-            if (!string.IsNullOrEmpty(idCategoria) && !esValidoCAT)
-            {
-                lblCatER.Text = "* El número debe ser mayor o igual a 1";
-            }
-            
-            string consulta = "SELECT IdProducto, NombreProducto, IdCategoría, CantidadPorUnidad, PrecioUnidad FROM Productos WHERE 1=1";
-
-           
-            if (!string.IsNullOrEmpty(idProducto) && esValidoPROD)
-            {
-                lblProdER.Text = "";
-                lblCatER.Text = "";
-                switch (filtrodeProducto)
-                {
-                    case "1":  // Igual a
-                        consulta += " AND IdProducto = @IdProducto";
-                        break;
-                    case "2":  // Mayor a
-                        consulta += " AND IdProducto > @IdProducto";
-                        break;
-                    case "3":  // Menor a
-                        consulta += " AND IdProducto < @IdProducto";
-                        break;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(idCategoria) && esValidoCAT)
-            {
-                lblProdER.Text = "";
-                lblCatER.Text = "";
-                if (!consulta.Contains("WHERE"))
-                {
-                    consulta += " WHERE 1=1";
-                }
-
-                switch (filtrodeCategoria)
-                {
-                    case "1":  // Igual a
-                        consulta += " AND IdCategoría = @IdCategoría";
-                        break;
-                    case "2":  // Mayor a
-                        consulta += " AND IdCategoría > @IdCategoría";
-                        break;
-                    case "3":  // Menor a
-                        consulta += " AND IdCategoría < @IdCategoría";
-                        break;
-                }
-            }
-
-            if (esValidoCAT || esValidoPROD) {
-                using (SqlConnection cn = new SqlConnection(cadenaConexion))
-                {
-                    using (SqlDataAdapter cmd = new SqlDataAdapter(consulta, cn))
-                    {
-                        if (!string.IsNullOrEmpty(idProducto))
-                        {
-                            cmd.SelectCommand.Parameters.AddWithValue("@IdProducto", idProducto);
-                        }
-                        if (!string.IsNullOrEmpty(idCategoria))
-                        {
-                            cmd.SelectCommand.Parameters.AddWithValue("@IdCategoría", idCategoria);
-                        }
-
-                        DataSet ds = new DataSet();
-                        cmd.Fill(ds, "Productos");
-                        gvProductos.DataSource = ds;
-                        gvProductos.DataBind();
-                    }
-                }
-                // Limpia los TextBox después de filtrar
-                txtProducto.Text = "";
-                txtCategoria.Text = "";
-            }
-            
-            
-        }*/
-
+       
         protected void btnQuitarFiltro_Click(object sender, EventArgs e)
         {
             txtCategoria.Text = "";
@@ -276,7 +179,6 @@ namespace TP4_Grupo_13
                 gvProductos.DataSource = sqlDataReader;
                 gvProductos.DataBind();
 
-                connection.Close();
             }
         }
     }
