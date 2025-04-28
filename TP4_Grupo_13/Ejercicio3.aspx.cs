@@ -14,6 +14,8 @@ namespace TP4_Grupo_13
         //private const string cadenaConexion = "Data Source=GERSONGUTIERREZ\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
         // private const string cadenaConexion = "Data Source=DESKTOP-A61I0IB\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
         //private const string cadenaConexion = "Data Source=KALU\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
+        private const string cadenaConexion = "Data Source=LENOVO\\SQLEXPRESS;Initial Catalog=Libreria;Integrated Security=True;Encrypt=False";
+
         string consultaSQL = "SELECT * FROM Temas";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,7 +48,8 @@ namespace TP4_Grupo_13
 
         protected void lbLibros_Click(object sender, EventArgs e)
         {
-            Server.Transfer("Ejercicio3B.aspx");
+            
+            Response.Redirect("Ejercicio3B.aspx?IdTema=" + ddlTemas.SelectedValue);
         }
     }
 
